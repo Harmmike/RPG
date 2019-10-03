@@ -1,0 +1,166 @@
+2019/09/21
+
+Created solution.
+Created UI.
+Created Player class.
+Created GameSession class.
+Added additional grids to UI.
+Added character information sections.
+Added button to gain exp.
+Added interface to player class for changes in properties.
+Added a pub/sub function for property changes in the player class.
+Created location class.
+Organized main xaml for location information... now to draw...
+Added images to solution.
+Created a world class/factory class to create worlds.
+Added all the worlds to the worldfactory class.
+Updated main window UI with movement buttons.
+Added functionality for movement.
+Added checks to prevent moving to null locations.
+
+Refactored some code - added nameof for our OnPropertyChanged subscribers.
+Added a base class for event handling.
+Added gaurd clauses.
+
+Added GameItem class, Weapon Class, and an item factory.
+-Check out the Clone() functions in the Weapon/GameItem classes.
+
+Added Player Inventory and associated UI.
+
+Added quest system and reward system.
+Added functionality for adding quests to player's quest log.
+
+
+2019/09/22
+
+Added monsters.
+Added rng for monsters to carry items.
+
+Created a Monster property in the GameSession class to use.
+-This has a nice lambda expression I need to learn how to use.
+
+Added functionality to check for monsters when location is changed.
+
+
+2019/09/23
+
+Added the text box to UI to display messages in game.
+Created the event to send/receive messages when a monster is found.
+Added functionality to add weapons to inventory.
+Added the combat system.
+- used a lot of raised messages to send to the message box.
+Added healing when you go home.
+
+Refactored some combat code.
+Refactored some getter-only properties to use lambda expressions.
+Refactored the WorldFactory and World Classes to only require the image name, rather than needing a long string for each value... CS-20 for World.cs
+-Did this for the monster creation as well, mostly just to be consistent.
+Refactored the GameSession class -> _gameSession to be just one line, and is now readonly to prevent any additional creations.
+
+Added quest completion.
+Added Trader Class.
+Adding TraderFactory.
+Added button to trade, and a few traders at some locations.
+
+Created the trade window and functionality to open/close the window.
+Added the ability to buy/sell items - items already have UI-refreshing logic.
+
+Refactored the Player/Monster/Trader classes.  Added a LivingEntity class which inherits from BaseNotificationClass.
+-This is to clean up the code and eliminate duplicate code.
+
+Added a grouped inventory to stack non-unique items to save space in the inventory section of UI.
+Added functionality to use the grouped inventory in the UI.
+
+
+2019/09/24
+
+Added encapsulation to LivingEntity class.
+-Re-worked some of the Player/Monster/Trader/GameSession classes to accept the LivingEntity refactor.
+Refactored additional classes to accept the changes to all children of LivingEntity
+
+
+2019/09/25
+
+Created the level up system.
+-This raises an event when exp reaches a certain amount, and updates hp/level accordingly.
+Modified LivingEntity/Player classes to encapsulate the level property.
+Modified GameSession to accept the new changes.
+
+Refactored base notification class, and removed some setters in various classes for protection.
+Refactored almost all clases to remove unecessary setters (setters that won't be used after instantiation, which means we handle them via constructor).
+Updated classes to use the parameterless OnPropertyChanged(), this is derived from the BaseNotificationClass change earlier
+
+Created TestEngine for automated testing.
+Created 2 unit tests to test various things in the GameSession class.
+
+Started setting up classes to accept the consumables.
+-Refactored the base GameItem class, added an enum for ItemCategory.
+-Added MinimumDamage and MaximumDamage to the GameItem class to allow for weapons to be created.
+Refactored ItemFactory to allow for building of weapons, standard items, and misc items(future) according to the new requirements.
+
+
+2019/09/27
+
+Created the Actions folder inside Engine and added an AttackWithWeapon class.
+- this will be used handle actions for us, and we're starting with attacking with weapon.
+Refactored GameItem.cs to conform to the changes in action sequence.
+Refactored ItemFactory.cs to conform to the changes...
+Refactored GameSession.cs to conform to the changes -> this reduced lines of code in this class.
+Added an IAction interface to the Actions folder. -> We will start implementing interfaces on classes.
+- this is useful when classes need to take in/store objects to use.
+Refactored various classes to conform to changes. Monster.cs/MonsterFactory.cs/GameSession.cs/AttackWithWeapon.cs/ItemFactory.cs
+
+Added the Heal.cs action. -> this re-uses a lot of code from AttackWithWeapon.cs so we will refactor in the future to make it cleaner/readable.
+-Refactored several classes to conform to changes.
+Modifed MainWindow.xaml/.cs to display and raise events for the consumables.
+
+
+
+Discovered a bug, when turning in a quest, the game only removes 1 quest item rather than the full amount.
+
+
+
+2019/09/29
+
+Added the crafting recipes and crafting system.
+-Created a recipe.cs and a recipefactory.cs
+Moved some code from the Player.cs to LivingEntity.cs to allow searching of craftables.
+Modified the UI to include recipes and a craft button.
+
+
+2019/09/30
+
+Added the key-movement function for wasd movement.
+- Did this via adding a dictionary of keys.
+- Basically just created the dictionary, and then upon initialization added the keys we want to the dictionary and their functions.
+
+
+2019/10/02
+
+Added more keyboard actions, including focusing on inventory, quest, recipe windows.
+Added the ability to open trade window via keyboard.
+- Modified the xaml to allow us to "focus" on a specific tab item.
+
+Creating the xml files allows us to distribute new Locations.xml/GameItems.xml etc, to expand or create new worlds, without needing the client to completely re-download the game.
+
+Created the GameData folder and .xml files to contain our data.
+Created the GameItems.xml to store all of our game items' data.
+Modified ItemFacory.cs to read from the GameItems.xml.
+Added a Shared folder with an ExtensionMethods.cs class to use for parsing xml data.
+
+Created the Locations.xml to store all of our locations' data.
+-Each Location node has a Description child node, and it can have a Trader, Monster or Quest child node as well.
+Modified World.cs -> AddLocation() to accept a fully-built location and then adds it to the list _locations.
+Modified WorldFactory.cs to read from the xml files
+Created a converter to convert the images for locations to a bitmap, which WPF can use.
+
+
+2019/10/03
+
+Modified image files for monsters.
+Created ItemPercentage.cs to store an item's id and the % chance it will show up in a monster's inventory.
+Modified Monster.cs with a new constructor and 2 new functions for populating the monster's loot and cloning the monster to the location.
+Created Monsters.xml.
+
+Created xml's for the additional objects in the game.  Modified their factories to read from xml.
+Also gave Traders id's to call from rather than using names - more accurate.
