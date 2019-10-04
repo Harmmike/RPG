@@ -1,4 +1,4 @@
-To add/remove/modify items/locations/monsters/traders, you will need to modify the .xml files within the Release\Images\GameData folder.
+To add/remove/modify items/locations/monsters/traders, you will need to modify the .xml files within the Release\GameData folder.
 
 When you modify one of these files, you MUST follow the conventions used.
   -This includes enclosing all the 'nodes' with brackets <>
