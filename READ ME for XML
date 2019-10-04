@@ -1,0 +1,21 @@
+To add/remove/modify items/locations/monsters/traders, you will need to modify the .xml files within the Release\Images\GameData folder.
+
+When you modify one of these files, you MUST follow the conventions used.
+  -This includes enclosing all the 'nodes' with brackets <>
+    - For example <Weapon MaximumDamage="999" MinimumDamage="998" Price="999" Name="Cliff's Member" ID="1009"/>
+    - If you don't do this, it will cause an error and the item will not be in the game, and could crash the client (I did not add try/catch for null values).
+  - The ID MUST be unique.
+    - Regardless of the name, if the ID is not unique it will just override the first item with that same ID and the first will not be in the game.
+  - Locations and Monsters need images, else it will cause an error and could crash the client (Again, I did not add a catch for this.)
+    - I will not paint for you.
+    - The image files should be put in the respective folder.
+    - The image name must match the .xml file's 'ImageName="xxx".
+    - The image files should be .png.
+    - Locations with monsters/traders/quests, should follow the same conventions with a child node. (Just follow the examples already in place, should be apparent)
+    - ALL locations need an x,y coordinate, and the x,y coordinate MUST be unique and MUST be adjacent to another location. (guess what happens if not)
+  - LootItems are the items a monster can drop when killed.
+  - Percentage is the % chance for that item to appear/drop. This is true regardless of the implementation.(Could be a monster spawn, a LootItem, or even a quest)
+  - Quests should be straightforward.
+  - Recipes have ingredients and output items, output is the result of the combined ingredients.
+  
+*If you have any issues or questions about modifying the .xml files, feel free to message me on WeChat.
